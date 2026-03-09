@@ -18,25 +18,21 @@ const modules = [
 export default function Product() {
   return (
     <Layout>
-      <section className="section-spacing">
+      <section style={{ paddingTop: "80px", paddingBottom: "80px" }}>
         <div className="container-tight">
-          <motion.div className="max-w-3xl mx-auto text-center mb-20" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fade}>
+          <motion.div className="max-w-3xl mx-auto text-center mb-16" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fade}>
             <h1 className="text-4xl sm:text-5xl font-bold mb-6">The <span className="gradient-text">TerraForge</span> Platform</h1>
             <p className="text-lg text-muted-foreground">An end-to-end AI-powered geospatial intelligence platform that transforms raw earth observation data into actionable mineral exploration insights.</p>
           </motion.div>
 
           {/* Product mockup */}
-          <motion.div className="card-premium p-8 mb-20" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fade}>
+          <motion.div className="card-premium p-8 mb-16" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fade}>
             <div className="rounded-lg bg-secondary/50 aspect-video relative overflow-hidden">
               <div className="absolute inset-0 geo-grid opacity-30" />
               <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(31,79,255,0.1), transparent 70%)" }} />
               <div className="absolute top-6 left-6 glass-card px-4 py-2">
                 <p className="text-xs text-muted-foreground">Active Exploration Region</p>
                 <p className="text-sm font-semibold">Pilbara Basin, Western Australia</p>
-              </div>
-              <div className="absolute bottom-6 right-6 glass-card px-4 py-3">
-                <p className="text-xs text-muted-foreground mb-1">AI Confidence Score</p>
-                <p className="text-2xl font-bold text-forge-orange">92.4%</p>
               </div>
             </div>
           </motion.div>
