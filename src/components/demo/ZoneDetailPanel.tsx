@@ -16,47 +16,56 @@ export default function ZoneDetailPanel({ zone, onClose }: Props) {
   ];
 
   const classColor =
-    zone.classification === "High" ? "text-green-400" :
-    zone.classification === "Medium" ? "text-forge-orange" : "text-red-400";
+    zone.classification === "High" ? "text-green-600" :
+    zone.classification === "Medium" ? "text-orange-500" : "text-red-500";
 
   return (
-    <div className="glass-card p-5 space-y-4 animate-fade-in-up">
+    <div 
+      className="p-5 space-y-4 animate-fade-in-up rounded-xl"
+      style={{
+        background: "rgba(255, 255, 255, 0.92)",
+        backdropFilter: "blur(6px)",
+        boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
+        border: "1px solid rgba(0,0,0,0.08)"
+      }}
+    >
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-bold flex items-center gap-2">
+        <h3 className="text-sm font-bold flex items-center gap-2 text-[#0f172a]">
           <Target size={14} className="text-forge-orange" />
           {zone.name}
         </h3>
-        <button onClick={onClose} className="p-1 rounded hover:bg-secondary transition-colors">
+        <button onClick={onClose} className="p-1 rounded hover:bg-gray-100 transition-colors text-[#374151]">
           <X size={14} />
         </button>
       </div>
 
       <div className="grid grid-cols-3 gap-3">
-        <div className="glass-card p-3 text-center">
-          <p className="text-[10px] text-muted-foreground mb-1">Probability</p>
+        <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-center">
+          <p className="text-[10px] text-[#374151] mb-1">Probability</p>
           <p className={`text-lg font-bold ${classColor}`}>{zone.probability}%</p>
         </div>
-        <div className="glass-card p-3 text-center">
-          <p className="text-[10px] text-muted-foreground mb-1">Classification</p>
+        <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-center">
+          <p className="text-[10px] text-[#374151] mb-1">Classification</p>
           <p className={`text-sm font-semibold ${classColor}`}>{zone.classification}</p>
         </div>
-        <div className="glass-card p-3 text-center">
-          <p className="text-[10px] text-muted-foreground mb-1">Confidence</p>
-          <p className="text-sm font-semibold text-geo-blue">{zone.confidenceScore}%</p>
+        <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-center">
+          <p className="text-[10px] text-[#374151] mb-1">Confidence</p>
+          <p className="text-sm font-semibold text-blue-600">{zone.confidenceScore}%</p>
         </div>
       </div>
 
       <div>
-        <p className="text-xs font-semibold text-muted-foreground mb-2 flex items-center gap-1">
+        <p className="text-xs font-semibold text-[#374151] mb-2 flex items-center gap-1">
           <Brain size={12} /> AI Feature Contribution
         </p>
         <ResponsiveContainer width="100%" height={120}>
           <BarChart data={factorData} layout="vertical" margin={{ left: 0, right: 10 }}>
-            <XAxis type="number" domain={[0, 40]} tick={{ fontSize: 10, fill: "#AAB3C5" }} />
-            <YAxis type="category" dataKey="name" width={70} tick={{ fontSize: 10, fill: "#AAB3C5" }} />
+            <XAxis type="number" domain={[0, 40]} tick={{ fontSize: 10, fill: "#4b5563" }} />
+            <YAxis type="category" dataKey="name" width={70} tick={{ fontSize: 10, fill: "#111827" }} />
             <Tooltip
-              contentStyle={{ background: "#111827", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, fontSize: 12 }}
+              contentStyle={{ background: "#ffffff", border: "1px solid #e5e7eb", borderRadius: 8, fontSize: 12, color: "#111827" }}
               formatter={(value: number) => [`${value}%`, "Contribution"]}
+              labelStyle={{ color: "#111827" }}
             />
             <Bar dataKey="value" radius={[0, 4, 4, 0]}>
               {factorData.map((entry, i) => (
@@ -68,12 +77,12 @@ export default function ZoneDetailPanel({ zone, onClose }: Props) {
       </div>
 
       <div>
-        <p className="text-xs font-semibold text-muted-foreground mb-2 flex items-center gap-1">
+        <p className="text-xs font-semibold text-[#374151] mb-2 flex items-center gap-1">
           <TrendingUp size={12} /> Prediction Explanation
         </p>
         <ul className="space-y-1.5">
           {zone.explanation.map((exp, i) => (
-            <li key={i} className="text-xs text-foreground/80 flex items-start gap-2">
+            <li key={i} className="text-xs text-[#1f2937] flex items-start gap-2">
               <span className="mt-1 w-1.5 h-1.5 rounded-full bg-forge-orange shrink-0" />
               {exp}
             </li>

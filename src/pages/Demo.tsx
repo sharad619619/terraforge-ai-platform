@@ -39,28 +39,28 @@ export default function Demo() {
     <Layout hideFooter>
       <div className="h-[calc(100vh-64px)] flex flex-col lg:flex-row">
         {/* Left Controls */}
-        <div className="w-full lg:w-72 xl:w-80 shrink-0 border-r border-border/50 bg-card/50 overflow-y-auto">
+        <div className="w-full lg:w-72 xl:w-80 shrink-0 border-r border-gray-200 bg-white/95 backdrop-blur-sm shadow-lg overflow-y-auto">
           <div className="p-4 space-y-4">
-            <div className="flex items-center gap-2 pb-3 border-b border-border/50">
+            <div className="flex items-center gap-2 pb-3 border-b border-gray-200">
               <FlaskConical size={16} className="text-forge-orange" />
-              <span className="text-sm font-bold">Demo Explorer</span>
+              <span className="text-sm font-bold text-[#0f172a]">Demo Explorer</span>
               <span className="ml-auto text-[10px] bg-forge-orange/20 text-forge-orange px-2 py-0.5 rounded-full font-medium">DEMO</span>
             </div>
 
-            <div className="glass-card p-3 text-xs text-muted-foreground flex items-start gap-2">
-              <Info size={12} className="shrink-0 mt-0.5 text-geo-blue" />
+            <div className="bg-blue-50 border border-blue-100 rounded-xl p-3 text-xs text-[#374151] flex items-start gap-2">
+              <Info size={12} className="shrink-0 mt-0.5 text-blue-600" />
               <span>This is a simulated demonstration using pre-generated probability layers. Select a region to explore AI predictions.</span>
             </div>
 
             {/* Region Selector */}
             <div>
-              <label className="text-xs font-semibold text-muted-foreground mb-1.5 block flex items-center gap-1">
+              <label className="text-xs font-semibold text-[#374151] mb-1.5 block flex items-center gap-1">
                 <MapPin size={11} /> Select State / Region
               </label>
               <select
                 value={selectedRegion}
                 onChange={(e) => handleRegionChange(e.target.value)}
-                className="w-full h-9 rounded-md bg-secondary border border-border/50 px-3 text-xs focus:outline-none focus:ring-1 focus:ring-geo-blue"
+                className="w-full h-9 rounded-md bg-gray-50 border border-gray-200 px-3 text-xs text-[#111827] focus:outline-none focus:ring-1 focus:ring-blue-500"
               >
                 {DEMO_REGIONS.map((r) => (
                   <option key={r.id} value={r.id}>{r.name}</option>
@@ -70,13 +70,13 @@ export default function Demo() {
 
             {/* District Selector */}
             <div>
-              <label className="text-xs font-semibold text-muted-foreground mb-1.5 block">
+              <label className="text-xs font-semibold text-[#374151] mb-1.5 block">
                 Select District / City
               </label>
               <select
                 value={selectedDistrict || ""}
                 onChange={(e) => handleDistrictChange(e.target.value)}
-                className="w-full h-9 rounded-md bg-secondary border border-border/50 px-3 text-xs focus:outline-none focus:ring-1 focus:ring-geo-blue"
+                className="w-full h-9 rounded-md bg-gray-50 border border-gray-200 px-3 text-xs text-[#111827] focus:outline-none focus:ring-1 focus:ring-blue-500"
               >
                 <option value="">All Districts</option>
                 {region.districts.map((d) => (
@@ -87,13 +87,13 @@ export default function Demo() {
 
             {/* Mineral Selector */}
             <div>
-              <label className="text-xs font-semibold text-muted-foreground mb-1.5 block flex items-center gap-1">
+              <label className="text-xs font-semibold text-[#374151] mb-1.5 block flex items-center gap-1">
                 <Layers size={11} /> Target Mineral
               </label>
               <select
                 value={selectedMineral}
                 onChange={(e) => { setSelectedMineral(e.target.value as Mineral); setSelectedZone(null); }}
-                className="w-full h-9 rounded-md bg-secondary border border-border/50 px-3 text-xs focus:outline-none focus:ring-1 focus:ring-geo-blue"
+                className="w-full h-9 rounded-md bg-gray-50 border border-gray-200 px-3 text-xs text-[#111827] focus:outline-none focus:ring-1 focus:ring-blue-500"
               >
                 {MINERALS.map((m) => (
                   <option key={m} value={m}>{m}</option>
@@ -103,19 +103,19 @@ export default function Demo() {
 
             {/* Zone Rankings */}
             <div>
-              <p className="text-xs font-semibold text-muted-foreground mb-2">Ranked Zones</p>
+              <p className="text-xs font-semibold text-[#374151] mb-2">Ranked Zones</p>
               <div className="space-y-1.5 max-h-48 overflow-y-auto">
                 {zones.slice(0, 8).map((z) => {
-                  const color = z.classification === "High" ? "text-green-400" : z.classification === "Medium" ? "text-forge-orange" : "text-red-400";
+                  const color = z.classification === "High" ? "text-green-600" : z.classification === "Medium" ? "text-orange-500" : "text-red-500";
                   const isActive = selectedZone?.id === z.id;
                   return (
                     <button
                       key={z.id}
                       onClick={() => setSelectedZone(z)}
-                      className={`w-full text-left rounded-md px-3 py-2 text-xs transition-colors ${isActive ? "bg-geo-blue/20 border border-geo-blue/30" : "glass-card hover:bg-secondary/80"}`}
+                      className={`w-full text-left rounded-md px-3 py-2 text-xs transition-colors ${isActive ? "bg-blue-100 border border-blue-300" : "bg-gray-50 border border-gray-200 hover:bg-gray-100"}`}
                     >
                       <div className="flex justify-between items-center">
-                        <span className="font-medium">{z.name}</span>
+                        <span className="font-medium text-[#111827]">{z.name}</span>
                         <span className={`font-bold ${color}`}>{z.probability}%</span>
                       </div>
                     </button>
@@ -125,8 +125,8 @@ export default function Demo() {
             </div>
 
             {/* Legend */}
-            <div className="glass-card p-3">
-              <p className="text-[10px] font-semibold text-muted-foreground mb-2">Probability Legend</p>
+            <div className="bg-gray-50 border border-gray-200 rounded-xl p-3">
+              <p className="text-[10px] font-semibold text-[#374151] mb-2">Probability Legend</p>
               <div className="space-y-1">
                 {[
                   { label: "High (≥75%)", color: "bg-green-500" },
@@ -134,8 +134,8 @@ export default function Demo() {
                   { label: "Low (<40%)", color: "bg-red-500" },
                 ].map((l) => (
                   <div key={l.label} className="flex items-center gap-2 text-[10px]">
-                    <span className={`w-3 h-3 rounded-sm ${l.color} opacity-60`} />
-                    <span className="text-muted-foreground">{l.label}</span>
+                    <span className={`w-3 h-3 rounded-sm ${l.color}`} />
+                    <span className="text-[#374151]">{l.label}</span>
                   </div>
                 ))}
               </div>
