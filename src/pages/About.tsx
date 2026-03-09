@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import { motion } from "framer-motion";
 import logo from "@/assets/terraforge-logo.jpeg";
-import { User } from "lucide-react";
+import founderImage from "@/assets/founder-sharad.jpeg";
 
 const fade = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } };
 
