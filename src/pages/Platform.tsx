@@ -197,14 +197,15 @@ export default function Platform() {
     toast.success("Report downloaded");
   }, [result]);
 
-  const factorData = selectedZone
-    ? [
-        { name: "Terrain", value: Math.round(selectedZone.factors.terrain * 100), color: "#22c55e" },
-        { name: "Spectral", value: Math.round(selectedZone.factors.spectral * 100), color: "#f97316" },
-        { name: "Geology", value: Math.round(selectedZone.factors.geology * 100), color: "#3b82f6" },
-        { name: "Historical", value: Math.round(selectedZone.factors.historical * 100), color: "#a855f7" },
-      ]
-    : [];
+  const selectedFactors = getNormalizedFactors(selectedZone);
+  const factorData = [
+    { name: "Terrain", value: Math.round(selectedFactors.terrain * 100), color: "#22c55e" },
+    { name: "Geology", value: Math.round(selectedFactors.geology * 100), color: "#3b82f6" },
+    { name: "Spectral", value: Math.round(selectedFactors.spectral * 100), color: "#f97316" },
+    { name: "Historical", value: Math.round(selectedFactors.historical * 100), color: "#a855f7" },
+  ];
+
+  const rankedZones = [...(result?.zones || [])].sort((a, b) => b.probability - a.probability);
 
   return (
     <Layout hideFooter>
