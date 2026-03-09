@@ -90,7 +90,7 @@ export default function Platform() {
   const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const newFiles = Array.from(e.target.files || []);
     const valid = newFiles.filter((f) => {
-      if (f.size > MAX_SIZE) { toast.error(`${f.name} exceeds 50MB limit`); return false; }
+      if (f.size > MAX_SIZE) { toast.error(`${f.name} exceeds 20MB limit`); return false; }
       const ext = "." + f.name.split(".").pop()?.toLowerCase();
       if (!ACCEPTED_TYPES.includes(ext)) { toast.error(`${f.name}: unsupported format`); return false; }
       return true;
@@ -102,6 +102,16 @@ export default function Platform() {
 
   const runAnalysis = useCallback(async () => {
     if (files.length === 0) { toast.error("Upload at least one dataset"); return; }
+
+    const geojsonFile = files.find((f) => {
+      const ext = "." + f.name.split(".").pop()?.toLowerCase();
+      return ext === ".geojson" || ext === ".json";
+    });
+
+    if (!geojsonFile) {
+      toast.error("Please include at least one GeoJSON/JSON file for map analysis");
+      return;
+    }
 
     setUploading(true);
     setAnalyzing(false);
