@@ -305,23 +305,22 @@ export default function Platform() {
                     <BarChart3 size={11} /> Ranked Zones
                   </p>
                   <div className="space-y-1 max-h-40 overflow-y-auto">
-                    {result.zones
-                      .sort((a, b) => b.probability - a.probability)
-                      .map((z) => {
-                        const color = z.classification === "High" ? "text-green-400" : z.classification === "Medium" ? "text-forge-orange" : "text-red-400";
-                        return (
-                          <button
-                            key={z.zone_id}
-                            onClick={() => setSelectedZone(z)}
-                            className="w-full text-left rounded-md px-3 py-2 text-xs glass-card hover:bg-secondary/80 transition-colors"
-                          >
-                            <div className="flex justify-between">
-                              <span className="font-medium">{z.zone_id}</span>
-                              <span className={`font-bold ${color}`}>{(z.probability * 100).toFixed(1)}%</span>
-                            </div>
-                          </button>
-                        );
-                      })}
+                    {rankedZones.map((z) => {
+                      const classification = z.classification || classifyProbability(z.probability);
+                      const color = getClassificationColor(classification);
+                      return (
+                        <button
+                          key={z.zone_id}
+                          onClick={() => setSelectedZone(z)}
+                          className="w-full text-left rounded-md px-3 py-2 text-xs glass-card hover:bg-secondary/80 transition-colors"
+                        >
+                          <div className="flex justify-between">
+                            <span className="font-medium">{z.zone_id}</span>
+                            <span className={`font-bold ${color}`}>{(z.probability * 100).toFixed(1)}%</span>
+                          </div>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               )}
