@@ -15,20 +15,32 @@ import {
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
+interface ZoneFactors {
+  terrain: number;
+  spectral: number;
+  geology: number;
+  historical: number;
+}
+
+interface AnalysisZone {
+  zone_id: string;
+  state?: string;
+  mineral?: string;
+  probability: number;
+  classification: string;
+  explanation?: string[];
+  factors: ZoneFactors;
+}
+
 interface AnalysisResult {
   region: string;
   target_mineral: string;
-  zones: {
-    zone_id: string;
-    probability: number;
-    classification: string;
-    factors: { terrain: number; spectral: number; geology: number; historical: number };
-  }[];
+  zones: AnalysisZone[];
   geojson: any;
 }
 
 const ACCEPTED_TYPES = [".geojson", ".csv", ".tif", ".tiff", ".zip", ".json"];
-const MAX_SIZE = 50 * 1024 * 1024; // 50MB
+const MAX_SIZE = 20 * 1024 * 1024; // 20MB
 
 export default function Platform() {
   const [files, setFiles] = useState<File[]>([]);
